@@ -15,9 +15,22 @@
 <ul>
 
     {% for post in lastest_posts_list %}
-    <li> <a href="{% url 'detail' post.pk %}">{{post.title}}</a> -- {{post.author}} <small><a
-                href="{% url 'update' post.pk %}">(Edit)</a></small> <small><a
-                    href="{% url 'delete' post.pk %}">(Delete)</a></small> <br> {{post.body}} </li>
+    <li> <a href="{% url 'detail' post.pk %}">{{post.title}}</a> -- {{post.author}}
+
+
+        {% if user.is_authenticated %}
+        
+        <small><a href="{% url 'update' post.pk %}">(Edit)</a></small>
+        <small><a href="{% url 'delete' post.pk %}">(Delete)</a></small>
+
+        {%endif%}
+
+
+
+
+
+        <br> {{post.body}}
+    </li>
     {% endfor %}
 
 </ul>

@@ -1,4 +1,4 @@
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .forms import AddPostForm, UpdatePostForm
@@ -9,6 +9,7 @@ class homeView(ListView):
     model = Post
     template_name = 'myblogapp/home.html'
     context_object_name = 'lastest_posts_list'
+    ordering = ['-id']
 
 
 class BlogDetailView(DetailView):
@@ -37,6 +38,7 @@ class UpdatePostView(UpdateView):
 class DeletePostView(DeleteView):
     model = Post
     template_name = 'myblogapp/delete.html'
+    success_url = reverse_lazy('home')
 
-    def get_success_url(self):
-        return reverse('home')
+    """def get_success_url(self):
+        return reverse('home')"""
