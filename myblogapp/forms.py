@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Catergory, Post
 
 
 class AddPostForm(forms.ModelForm):
@@ -18,6 +18,19 @@ class AddPostForm(forms.ModelForm):
                 'class': 'form-control'
             }),
 
+
+        }
+
+
+class AddCategoryForm(forms.ModelForm):
+    class Meta:
+        model = Catergory
+        fields = '__all__'
+        widgets = {
+
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+            })
 
         }
 
