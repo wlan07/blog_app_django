@@ -1,0 +1,43 @@
+{% include 'myblogapp/base.html'%}
+
+{%block content%}
+
+<h1>Filtred Posts : {{category_name}} </h1>
+
+<br>
+
+{% if filtred_list %}
+
+
+<ul>
+
+    {% for post in filtred_list %}
+    <li> <a href="{% url 'detail-post' post.pk %}">{{post.title}}</a> -- {{post.author}}
+
+
+        {% if user.is_authenticated %}
+
+        <small><a href="{% url 'update-post' post.pk %}">(Edit)</a></small>
+        <small><a href="{% url 'delete-post' post.pk %}">(Delete)</a></small>
+
+        {%endif%}
+
+
+        <br>
+
+        {{post.body|slice:":500"}}
+
+    </li>
+    {% endfor %}
+
+</ul>
+
+{%else%}
+
+<p>NO POSTS HERE !</p>
+
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,16 +1,45 @@
+from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import AddCategoryForm, AddPostForm, UpdatePostForm
 from .models import Category, Post
 
+
+def unslugify(s: str) -> str:
+    return s.replace('-', ' ')
+
+
 # Home
-
-
 class homeView(ListView):
     model = Post
     template_name = 'myblogapp/home.html'
     context_object_name = 'lastest_posts_list'
     ordering = ['-id']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cat_menu'] = Category.objects.all()
+        return context
+
+
+def FiltredBlogView(request, name):
+    unslugified_cat_name = unslugify(name)
+    filtred_list = Post.objects.filter(category__name__iexact=unslugified_cat_name)
+    context = {
+        'filtred_list': filtred_list,
+        'category_name': unslugified_cat_name
+    }
+    return render(request, 'myblogapp/filtred_posts.html', context)
+
+
+"""class BlogFiltredView(ListView):
+    model = Post
+    template_name = 'myblogapp/filtred_posts.html'
+    context_object_name = 'filtred_posts_list'
+    ordering = ['-id']
+
+    def get_queryset(self):
+        return self.model.objects.filter(category=1)"""
 
 
 # Posts

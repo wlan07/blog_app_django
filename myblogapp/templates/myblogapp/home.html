@@ -15,18 +15,21 @@
 <ul>
 
     {% for post in lastest_posts_list %}
-    <li> <a href="{% url 'detail-post' post.pk %}">{{post.title}}</a> -- {{post.author}} -- {{post.category}}
+    <li> <a href="{% url 'detail-post' post.pk %}">{{post.title}}</a> -- {{post.author}} --
 
+
+        <small><a href="{% url 'filter' post.category|slugify %}"> {{post.category}} </a> --</small>
 
         {% if user.is_authenticated %}
 
-        <small><a href="{% url 'update-post' post.pk %}">(Edit)</a></small>
-        <small><a href="{% url 'delete-post' post.pk %}">(Delete)</a></small>
+    
 
-        {%endif%}
 
+        {% endif %}
 
         <br>
+
+
 
         {{post.body|slice:":500"}}
 
