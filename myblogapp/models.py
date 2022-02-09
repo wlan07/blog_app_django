@@ -21,6 +21,11 @@ class Post(models.Model):
     body = models.TextField()
     category = models.ForeignKey(
         Category, default=get_default_category, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User,related_name="blog_likes")
 
+
+    def count_likes(self):
+        return self.likes.count()
+        
     def __str__(self) -> str:
         return self.title + " | " + str(self.author)

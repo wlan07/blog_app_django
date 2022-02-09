@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from turtle import pos
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import AddCategoryForm, AddPostForm, UpdatePostForm
@@ -20,6 +22,11 @@ class HomeView(ListView):
         context = super().get_context_data(**kwargs)
         context['cat_menu'] = Category.objects.all()
         return context
+
+def PostLikeView(request,pk):
+    post = get_object_or_404(Post,id=request.POST.get("post_id"))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('detail-post',args=[str(pk)]))
 
 
 def FiltredBlogView(request, name):
