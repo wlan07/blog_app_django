@@ -35,7 +35,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                        Categories
+                            Categories
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
@@ -64,6 +64,7 @@
                     </li>
 
                     {%else%}
+
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
                     </li>
@@ -76,8 +77,11 @@
 
                     {%endif%}
 
-
-
+                    <li class="nav-item position-absolute top-50 end-0 translate-middle">
+                        <button type="button" class="btn btn-success">
+                            {{user}} 
+                        </button>
+                    </li>
 
                 </ul>
 
