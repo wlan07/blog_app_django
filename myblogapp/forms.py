@@ -5,14 +5,16 @@ from .models import Category, Post
 class AddPostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title','author','category','body')
+        fields = ('title', 'author', 'category', 'body')
         widgets = {
 
             'title': forms.TextInput(attrs={
                 'class': 'form-control',
             }),
-            'author': forms.Select(attrs={
-                'class': 'form-control'
+            'author': forms.TextInput(attrs={
+                'class': 'form-control',
+                'id': 'author_field_id',
+                'type': 'hidden'
             }),
             'category': forms.Select(attrs={
                 'class': 'form-control'

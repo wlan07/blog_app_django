@@ -10,7 +10,7 @@ def unslugify(s: str) -> str:
 
 
 # Home
-class homeView(ListView):
+class HomeView(ListView):
     model = Post
     template_name = 'myblogapp/home.html'
     context_object_name = 'lastest_posts_list'
