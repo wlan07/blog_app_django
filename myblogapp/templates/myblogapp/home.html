@@ -20,9 +20,12 @@
 
         <small><a href="{% url 'filter' post.category|slugify %}"> {{post.category}} </a> --</small>
 
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and user.id == post.author.id %}
 
-    
+
+        <small><a href="{% url 'update-post' post.pk %}"> (Edit) </a></small>
+        <small><a href="{% url 'delete-post' post.pk %}"> (Delete) </a></small>
+
 
 
         {% endif %}
