@@ -10,7 +10,6 @@ from .models import Category, Post
 def unslugify(s: str) -> str:
     return s.replace('-', ' ')
 
-
 # Home
 class HomeView(ListView):
     model = Post
@@ -26,6 +25,12 @@ class HomeView(ListView):
 def PostLikeView(request,pk):
     post = get_object_or_404(Post,id=request.POST.get("post_id"))
     post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('detail-post',args=[str(pk)]))
+
+
+def PostUnlikeView(request,pk):
+    post = get_object_or_404(Post,id=request.POST.get("post_id"))
+    post.likes.remove(request.user)
     return HttpResponseRedirect(reverse('detail-post',args=[str(pk)]))
 
 

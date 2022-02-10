@@ -17,13 +17,19 @@
 
 
 
-<form action="{% url 'like-post' post.pk %}" method="post">
+{% if user in post.likes.all %}
+
+
+
+
+<form action="{% url 'unlike-post' post.pk %}" method="post">
 
     {% csrf_token %}
 
-    <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">
+    <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm">
 
-        Like
+        Unlike
+
 
     </button> - {{post.count_likes}} Likes
 
@@ -32,7 +38,27 @@
 </form>
 
 
+{%else%}
 
+
+
+<form action="{% url 'like-post' post.pk %}" method="post">
+
+    {% csrf_token %}
+
+    <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">
+
+        Like
+
+
+    </button> - {{post.count_likes}} Likes
+
+
+
+</form>
+
+
+{%endif%}
 <br>
 
 
