@@ -34,7 +34,7 @@
 
 
 
-        {{post.body|slice:":500"}}
+        {{post.body|slice:":500"|safe}}
 
     </li>
     {% endfor %}
