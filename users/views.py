@@ -1,8 +1,7 @@
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserChangeForm
-from users.forms import UserSignUpForm
+from users.forms import UserSignUpForm,UserUpdateForm
 
 # Create your views here.
 
@@ -14,7 +13,7 @@ class UserRegisterView(generic.CreateView):
 
 
 class EditProfileView(generic.UpdateView):
-    form_class = UserChangeForm
+    form_class = UserUpdateForm
     template_name = 'registration/update.html'
     success_url = reverse_lazy('home')
 

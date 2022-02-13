@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django import forms
 
@@ -17,3 +17,15 @@ class UserSignUpForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         for i in self.fields:
             self.fields[i].widget.attrs["class"] = 'form-control'
+
+
+class UserUpdateForm(UserChangeForm):
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        for i in self.fields:
+            if not 'is' in i:
+                self.fields[i].widget.attrs["class"] = 'form-control' 
+            else:
+                self.fields[i].widget.attrs["class"] = 'form-check' 
+                
