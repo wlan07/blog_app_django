@@ -5,7 +5,7 @@ from .models import Category, Post
 class AddPostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'author', 'category', 'body')
+        fields = ('title', 'author', 'category', 'body','snippet')
         widgets = {
 
             'title': forms.TextInput(attrs={
@@ -20,6 +20,9 @@ class AddPostForm(forms.ModelForm):
                 'class': 'form-control'
             }),
             'body': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'snippet': forms.Textarea(attrs={
                 'class': 'form-control'
             }),
 
@@ -42,7 +45,7 @@ class AddCategoryForm(forms.ModelForm):
 class UpdatePostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'category', 'body')
+        fields = ('title', 'category', 'body','snippet')
         widgets = {
 
             'title': forms.TextInput(attrs={
@@ -54,6 +57,9 @@ class UpdatePostForm(forms.ModelForm):
             }),
 
             'body': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'snippet': forms.Textarea(attrs={
                 'class': 'form-control'
             }),
 
