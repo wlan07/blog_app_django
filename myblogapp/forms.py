@@ -5,7 +5,8 @@ from .models import Category, Post
 class AddPostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'author', 'category', 'body','snippet')
+        fields = ('title', 'author', 'category',
+                  'body', 'snippet', 'header_image')
         widgets = {
 
             'title': forms.TextInput(attrs={
@@ -45,7 +46,7 @@ class AddCategoryForm(forms.ModelForm):
 class UpdatePostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'category', 'body','snippet')
+        fields = ('title', 'category', 'body', 'snippet')
         widgets = {
 
             'title': forms.TextInput(attrs={

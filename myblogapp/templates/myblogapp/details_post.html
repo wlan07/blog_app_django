@@ -4,10 +4,25 @@
 
 {%block content%}
 
+
+
+
+<img src="{{post.header_image.url}}" class="img-fluid" alt="{{post.header_image.url}}">
+
+
+<br>
+<br>
+
+
+
 <h1>{{post.title}}</h1>
 
 
+
+
 <p>{{post.body|safe}}</p>
+
+
 
 
 <a href="{% url 'home' %}" class='btn btn-secondary'>back</a>
