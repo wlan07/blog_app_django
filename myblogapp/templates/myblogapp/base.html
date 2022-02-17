@@ -59,6 +59,11 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'edit-user' %}">Edit User</a>
+                    </li>
+
+                    
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'edit-profile' %}">Edit Profile</a>
                     </li>
 
@@ -81,13 +86,11 @@
                         <a class="nav-link" href="{% url 'register' %}">Register</a>
                     </li>
 
-
-
                     {%endif%}
 
                     <li class="nav-item position-absolute top-50 end-0 translate-middle">
                         <button type="button" class="btn btn-success">
-                            {{user}}
+                            <a href="{% url 'profile-view' %}" style="color: white;">{{user}}</a>
                         </button>
                     </li>
 
