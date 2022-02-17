@@ -18,20 +18,6 @@
 <h1>{{post.title}}</h1>
 
 
-
-
-<p>{{post.body|safe}}</p>
-
-
-
-
-<a href="{% url 'home' %}" class='btn btn-secondary'>back</a>
-
-<br>
-<hr>
-
-
-
 {% if user in post.likes.all %}
 
 
@@ -77,6 +63,58 @@
 <br>
 
 
+
+
+
+<p>{{post.body|safe}}</p>
+
+
+
+
+
+
+<br>
+
+
+
+
+<h1>Comments</h1>
+
+<hr>
+
+{%if post.comments.all%}
+
+
+
+{%for comment in post.comments.all%}
+
+
+<strong>{{comment.name}} - {{comment.date_added}}</strong>
+
+<br>
+
+<p>{{comment.body}}</p>
+
+
+{%endfor%}
+
+
+
+
+{%else%}
+
+
+
+
+{%endif%}
+
+
+
+
+
+
+<br>
+<hr>
 
 
 {%if post.author.profile %}
@@ -141,6 +179,8 @@
 
 
 
+
+<a href="{% url 'home' %}" class='btn btn-secondary'>back</a>
 
 
 {% endblock %}

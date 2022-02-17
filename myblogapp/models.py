@@ -15,7 +15,6 @@ def get_default_category() -> int:
     return Category.objects.get(name="Coding").id
 
 
-
 class Post(models.Model):
     title = models.CharField(max_length=200)
     header_image = models.ImageField(
@@ -34,18 +33,29 @@ class Post(models.Model):
         return self.title + " | " + str(self.author)
 
 
-
-
 class Profile(models.Model):
     user = models.OneToOneField(User,  null=True, on_delete=models.CASCADE)
     bio = models.TextField()
     profile_pic = models.ImageField(
         null=True, blank=True, upload_to="images/profile/")
-    website_url = models.CharField(null=True,blank=True,max_length=255)
-    fb_url = models.CharField(null=True,blank=True,max_length=255)
-    instagram_url = models.CharField(null=True,blank=True,max_length=255)
-    linkedIn_url = models.CharField(null=True,blank=True,max_length=255)
-    github_url = models.CharField(null=True,blank=True,max_length=255)
+    website_url = models.CharField(null=True, blank=True, max_length=255)
+    fb_url = models.CharField(null=True, blank=True, max_length=255)
+    instagram_url = models.CharField(null=True, blank=True, max_length=255)
+    linkedIn_url = models.CharField(null=True, blank=True, max_length=255)
+    github_url = models.CharField(null=True, blank=True, max_length=255)
 
     def __str__(self) -> str:
         return str(self.user)
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post,
+                             models.CASCADE, related_name="comments")
+    name = models.CharField(max_length=255)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+
+
+    def __str__(self) -> str:
+        return "%s - %s" % (self.post.title,self.name)
