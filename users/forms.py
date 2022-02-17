@@ -38,6 +38,13 @@ class UserProfileUpdateForm(forms.ModelForm):
         fields = ('bio', 'profile_pic', 'website_url', 'fb_url',
                   'instagram_url', 'linkedIn_url', 'github_url')
 
+class UserProfileCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ('bio', 'profile_pic', 'website_url', 'fb_url',
+                  'instagram_url', 'linkedIn_url', 'github_url')
+
 
 class UserUpdatePasswordForm(PasswordChangeForm):
     def __init__(self, user, *args, **kwargs) -> None:
