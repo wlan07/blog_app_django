@@ -1,16 +1,17 @@
-from turtle import pos
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import AddCategoryForm, AddPostForm, UpdatePostForm
-from .models import Category, Post
+from .models import Category, Post, Comment
 
 
 def unslugify(s: str) -> str:
     return s.replace('-', ' ')
 
 # Home
+
+
 class HomeView(ListView):
     model = Post
     template_name = 'myblogapp/home.html'
@@ -22,21 +23,33 @@ class HomeView(ListView):
         context['cat_menu'] = Category.objects.all()
         return context
 
-def PostLikeView(request,pk):
-    post = get_object_or_404(Post,id=request.POST.get("post_id"))
+
+def PostLikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get("post_id"))
     post.likes.add(request.user)
-    return HttpResponseRedirect(reverse('detail-post',args=[str(pk)]))
+    return HttpResponseRedirect(reverse('detail-post', args=[str(pk)]))
 
 
-def PostUnlikeView(request,pk):
-    post = get_object_or_404(Post,id=request.POST.get("post_id"))
+def PostCommentView(request, pk):
+    c = Comment(
+        post_id=request.POST.get("post_id"),
+        name=request.user,
+        body=request.POST.get("comment")
+    )
+    c.save()
+    return HttpResponseRedirect(reverse('detail-post', args=[str(pk)]))
+
+
+def PostUnlikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get("post_id"))
     post.likes.remove(request.user)
-    return HttpResponseRedirect(reverse('detail-post',args=[str(pk)]))
+    return HttpResponseRedirect(reverse('detail-post', args=[str(pk)]))
 
 
 def FiltredBlogView(request, name):
     unslugified_cat_name = unslugify(name)
-    filtred_list = Post.objects.filter(category__name__iexact=unslugified_cat_name)
+    filtred_list = Post.objects.filter(
+        category__name__iexact=unslugified_cat_name)
     context = {
         'filtred_list': filtred_list,
         'category_name': unslugified_cat_name
@@ -98,6 +111,3 @@ class AddCategoryView(CreateView):
 
     def get_success_url(self):
         return reverse('home')
-
-
-

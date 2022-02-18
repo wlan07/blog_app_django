@@ -78,7 +78,22 @@
 
 
 
+
+
 <h1>Comments</h1>
+
+
+
+<form action="{% url 'comment-post' post.pk %}" method="post" id="comment-form">
+    {% csrf_token %}
+
+    <textarea placeholder="enter comment here" class="form-control" name="comment" form="comment-form"
+        rows="10"></textarea>
+    <br>
+
+    <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-secondary">Comment</button>
+
+</form>
 
 <hr>
 
@@ -104,6 +119,7 @@
 {%else%}
 
 
+<p>No comments Yet...</p>
 
 
 {%endif%}
